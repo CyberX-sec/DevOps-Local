@@ -1,61 +1,106 @@
-Exiplanation For CyberX jentilmens To Undwerstand what We did :
+DevOps-Local
 
- - Web Application:
+A purposely vulnerable web application project designed for security testing, DevOps pipeline practice, and static analysis tool demonstrations.
+Table of Contents
 
-    Made with Python and SQLite as the database.
+    Overview
+    Key Features & Vulnerabilities
+    Setup Instructions
+    Security & Static Analysis Tools
+    How to Scan
+    Notes
+    Next Steps
 
-    Contains multiple vulnerabilities intentionally, including:
+Overview
 
-        Broken Access Control (admin page accessible without checks)
+This project includes:
 
-        Cross-Site Scripting (XSS)
+    A Python-based web application with an SQLite database.
+    Intentionally introduced vulnerabilities for educational and testing purposes.
+    A bash script for automated security and static analysis tool execution.
+    All required tools and dependencies bundled or referenced for local use.
 
-        Logic flaws
+Key Features & Vulnerabilities
 
-        Plaintext password storage
+The web application intentionally contains several common security flaws to facilitate learning and tool testing, including:
 
-        Missing CSRF protection
+    Broken Access Control: Admin page accessible without authentication checks.
+    Cross-Site Scripting (XSS): User input not properly sanitized.
+    Logic Flaws: Application logic is deliberately insecure.
+    Plaintext Password Storage: User credentials stored in cleartext.
+    Missing CSRF Protection: Forms lack CSRF tokens.
+    Weak Session Key: Hardcoded, short session secret.
+    No Input Validation: User inputs are not validated.
 
-        Weak session key (hardcoded and short)
+Setup Instructions
 
-        No input validation
+    Clone the repository:
+    sh
 
+git clone https://github.com/CyberX-sec/DevOps-Local.git
+cd DevOps-Local
 
+Install Python dependencies:
+sh
 
+    pip install -r requirements.txt
 
-2 - Scan Bash File:
+    Install security tools (if not already installed):
+        Most tools can be installed with pip or npm as needed.
 
-A bash script that runs all security and static analysis tools with one command.
+    Ensure gitleaks.exe is present in the project directory.
+        This is required for secret scanning and should be run directly (not via PATH).
 
-All tools are installed locally, mostly using pip or npm.
+Security & Static Analysis Tools
 
+The following tools are set up to scan the project for issues:
 
+Security Tools
 
+    bandit: Scan Python code for common security issues.
+    snyk: Scan dependencies in requirements.txt for known vulnerabilities.
+    gitleaks: Scan repository history and code for secrets like API keys and passwords.
 
-Security Tools:
+Static Analysis Tools (SAST)
 
-    bandit: Scans Python code for common security issues.
+    pyright: Check Python code for type errors.
+    pylint: Analyze code for errors, bad practices, and style issues.
+    flake8: Enforce PEP8 coding style.
 
-    snyk: Scans dependencies listed in requirements.txt for known vulnerabilities.
+How to Scan
 
-    gitleaks: Scans the Git repository (commits and code) for secrets like API keys and passwords. It’s used via the .exe file in this case (not added to PATH).
+    Install all dependencies and tools.
 
+    Run the scan script using PowerShell (in VS Code terminal or similar):
+    sh
 
+.\scan.ps1
 
-Static Analysis Tools (SAST):
+    This will execute all the security and static analysis tools automatically.
 
-    pyright: Checks for type errors in Python code.
+Snyk authentication:
+Before using Snyk for the first time, authenticate with:
+sh
 
-    pylint: Performs deep analysis of the code for errors, bad practices, and style issues.
+    snyk auth
 
-    flake8: Checks for coding style issues based on PEP8.
+Notes
 
-This setup helps us detect weaknesses in the code and the development process. The web app was created specifically to be scanned and tested by these tools
+    The requirements.txt was generated with:
+    sh
 
+    pip freeze > requirements.txt
 
+    gitleaks.exe must be present in the project directory; running it directly is required as it's not added to the system PATH.
+    The web application is intentionally insecure and should not be deployed in a production environment.
 
--- When you done installing these files and tools just run ( .\scan.ps1 ) in vs code terminal
--- the requirements.txt files was generated using this command ( pip freeze > requirements.txt )
--- gitleaks.exe should be within the files to run ( I tryed adding it to env path but .. i could not so im running it directly )
--- when you finish building and testing your CI/CD pipeline we will make more stable-respectfull version of this application
--- to use "Snyk" you must first use this command (synk auth) to sign up
+Next Steps
+
+Once you’ve built and tested your CI/CD pipeline using this intentionally vulnerable app, the plan is to refactor and create a stable, security-hardened version.
+Contribution
+
+Feel free to open issues or submit pull requests for improvements or new security scenarios.
+
+CyberX-sec Team
+
+Let me know if you’d like to add badges, deployment instructions, or CI/CD sample configurations!
